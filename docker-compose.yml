@@ -1,0 +1,22 @@
+
+services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    environment:
+      - MONGO_URI=mongodb://database:27017/ideanest
+
+  database:
+    image: mongo:7.0.15
+    container_name: database
+    volumes:
+      - ./.data:/data/db
+    command: --quiet
+    ports:
+      - "27018:27017"
+
+volumes:
+  .data:
